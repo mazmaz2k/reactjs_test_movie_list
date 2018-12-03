@@ -9,7 +9,7 @@ export class AddMovie extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state = { 
             collapse: false,
-            diractor: '',
+            director: '',
             runtime: '',
             genre: '',
             movieTitle: '',
@@ -27,13 +27,13 @@ export class AddMovie extends React.Component {
 
     }
 
-    validate(movieTitle, diractor,runtime, genre, year){
+    validate(movieTitle, director,runtime, genre, year){
         return({
             movieTitle: movieTitle.length === 0,
             year: year.length ===0,
             runtime: runtime.length ===0,
             genre: genre.length ===0,
-            diractor: diractor.length===0
+            director: director.length===0
             }
         );
     }
@@ -46,7 +46,7 @@ export class AddMovie extends React.Component {
     }
     handleDirectorChange(e) {
         // console.log(e);
-        this.setState({diractor: e.target.value});
+        this.setState({director: e.target.value});
     }
 
     handleYearChange(e) {
@@ -70,7 +70,7 @@ export class AddMovie extends React.Component {
     //     this.setState({year: e.target.value});
     // }
     canBeSubmitted() {
-        const errors = this.validate(this.state.movieTitle,this.state.diractor,this.state.runtime,this.state.genre,this.state.year);
+        const errors = this.validate(this.state.movieTitle,this.state.director,this.state.runtime,this.state.genre,this.state.year);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return !isDisabled;
       }
@@ -78,17 +78,17 @@ export class AddMovie extends React.Component {
     handleSubmit(event){
 
         // console.log(e)
-        console.log(this.state.diractor);
+        console.log(this.state.director);
         console.log(this.state.movieTitle);
         console.log(this.state.runtime);
         console.log(this.state.genre);
         console.log(this.state.year);
-        if(this.state.diractor!=='' && this.state.movieTitle!=='' && this.state.year!=='' && this.state.genre.length!='' &&this.state.runtime!=''){
+        if(this.state.director!=='' && this.state.movieTitle!=='' && this.state.year!=='' && this.state.genre.length!=='' && this.state.runtime!==''){
             const min = 1;
             const max = 100000;
             const rand =Math.floor(min + Math.random() * (max - min)) ;
-            // this.props.movieList.push({id: this.props.movieList.length, movieTitle:this.state.movieTitle,year:this.state.year,diractor:this.state.diractor});
-            this.props.addNewBook({id: rand, movieTitle:this.state.movieTitle, year:this.state.year,runtime: this.state.runtime, genre: this.state.genre,diractor:this.state.diractor  });
+            // this.props.movieList.push({id: this.props.movieList.length, movieTitle:this.state.movieTitle,year:this.state.year,director:this.state.director});
+            this.props.addNewMovie({id: rand, movieTitle:this.state.movieTitle, year:this.state.year,runtime: this.state.runtime, genre: this.state.genre, director:this.state.director  });
             this.toggle();
             // this.props.movieList()
             // event.preventDefault();
@@ -102,14 +102,14 @@ export class AddMovie extends React.Component {
             movieTitle:'',
             runtime:'',
             genre: '',
-            diractor: ''
+            director: ''
             }
         )
         // console.log(this.props.movieList);
 
     }
     render() {
-        const errors= this.validate(this.state.movieTitle, this.state.diractor,this.state.year,this.state.genre, this.state.year);
+        const errors= this.validate(this.state.movieTitle, this.state.director,this.state.year,this.state.genre, this.state.year);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
 
         return (
@@ -124,8 +124,8 @@ export class AddMovie extends React.Component {
                                     <Input type="text" name="movieTitle" id="movieTitle"  value={this.state.movieTitle} onChange={this.handleTitleChange}  placeholder="Enter Movie Name" className={errors.movieTitle ? "error" : ""}/>
                                 </FormGroup>
                                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter diractor Name</Label>
-                                    <Input  type="text" name="diractor" id="diractor" placeholder="Enter diractor Name" value={this.state.diractor} onChange={this.handleDirectorChange} className={errors.diractor ? "error" : ""} />
+                                    <Label  className="mr-sm-2">Enter director Name</Label>
+                                    <Input  type="text" name="director" id="director" placeholder="Enter director Name" value={this.state.director} onChange={this.handleDirectorChange} className={errors.director ? "error" : ""} />
                                 </FormGroup>
                                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                     <Label  className="mr-sm-2">Enter  Year</Label>
@@ -136,7 +136,7 @@ export class AddMovie extends React.Component {
                                     <Input valid type="number"  min="0"  name="runtime" id="runtime" placeholder="Enter runtime placeholder" value={this.state.runtime} onChange={this.handleRuntimeChange}  className={errors.runtime ? "error" : ""}/>
                                 </FormGroup>
                                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter  genre</Label>
+                                    <Label  className="mr-sm-2">Enter  Genre</Label>
                                     <Input valid type="text"   name="genre" id="genre" placeholder="Enter genre placeholder" value={this.state.genre} onChange={this.handleGenreChange}  className={errors.genre ? "error" : ""}/>
                                 </FormGroup>
                                 <hr/>

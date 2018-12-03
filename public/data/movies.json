@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "movieTitle": "Leanne Graham",
+        "director": "smith",
+        "genre": "Biography, Crime, Drama",
+        "year": "199",
+        "runtime": "100"
+    },
+    {
+        "id": 2,
+        "movieTitle": "Leanne Graham 2",
+        "director": "smith",
+        "genre": "Biography, Crime, Drama",
+        "year": "199",
+        "runtime": "100"
+    },
+    {
+        "id": 3,
+        "movieTitle": "Leanne Graham 3",
+        "director": "smith",
+        "Genre": "Biography, Crime, Drama",
+        "year": "199",
+        "runtime": "100"
+    },
+    {
+        "id": 4,
+        "movieTitle": "Leanne Graham 4",
+        "director": "smith",
+        "genre": "Biography, Crime, Drama",
+        "year": "199",
+        "runtime": "100"
+    }
+]

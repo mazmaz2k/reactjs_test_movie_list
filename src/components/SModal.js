@@ -4,24 +4,25 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 export class SModal extends React.Component {
-    constructor(props) {
+    constructor(props, context) {
 
-        super(props);
+        super(props, context);
+        console.log("ssssss", props.movie);
         this.state = {
-            director: this.props.movie.director,
             movieTitle: this.props.movie.movieTitle,
+            director: this.props.movie.director,
             runtime: this.props.movie.runtime,
             genre: this.props.movie.genre,
-            year: this.props.year,
+            year: this.props.movie.year,
             valTitle: false
 
         };
     }
 
-    setValues(movieTitle,director,runtime, genre, year){
+    // setValues(movieTitle,director,runtime, genre, year){
         
 
-    }
+    // }
 
 
 
@@ -31,8 +32,8 @@ export class SModal extends React.Component {
                 <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.props.toggle}><b>{this.props.movie.movieTitle}</b></ModalHeader>
                     <ModalBody>
-                        <p>Title: {this.props.movie.movieTitle}</p>
-                        <p>Year: {this.props.props.year}</p>
+                        {/* <p>Title: {this.props.movie.movieTitle}</p> */}
+                        <p>Year: {this.props.movie.year}</p>
                         <p>Runtime: {this.props.movie.runtime}</p>
                         <p>Genre: {this.props.movie.genre}</p>
                         <p>Director: {this.props.movie.director}</p>
