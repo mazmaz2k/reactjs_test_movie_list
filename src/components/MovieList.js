@@ -27,7 +27,7 @@ class MovieList extends React.Component{
 
     toggle(i) {
         this.setState({
-          modal: !this.state.model,
+          modal: !this.state.modal,
           idx: i,
         });
     }
@@ -62,6 +62,7 @@ class MovieList extends React.Component{
             console.log(error);
           });
       }
+      
       addNewMovie(movie) {
         const movieList = this.state.movies;
         movieList.push(movie);

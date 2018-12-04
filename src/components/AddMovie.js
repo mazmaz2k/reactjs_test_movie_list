@@ -9,10 +9,10 @@ export class AddMovie extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state = { 
             collapse: false,
+            movieTitle: '',
             director: '',
             runtime: '',
             genre: '',
-            movieTitle: '',
             year: '',
             valTitle :false
   
@@ -50,6 +50,9 @@ export class AddMovie extends React.Component {
     }
 
     handleYearChange(e) {
+        if(e.target.value===''){
+            return false;
+        }
         // console.log(e);
         this.setState({year: e.target.value});
     }
@@ -83,12 +86,12 @@ export class AddMovie extends React.Component {
         console.log(this.state.runtime);
         console.log(this.state.genre);
         console.log(this.state.year);
-        if(this.state.director!=='' && this.state.movieTitle!=='' && this.state.year!=='' && this.state.genre.length!=='' && this.state.runtime!==''){
+        if(this.state.director!=='' && this.state.movieTitle!=='' && this.state.year!=='' && this.state.genre!=='' && this.state.runtime!==''){
             const min = 1;
             const max = 100000;
             const rand =Math.floor(min + Math.random() * (max - min)) ;
             // this.props.movieList.push({id: this.props.movieList.length, movieTitle:this.state.movieTitle,year:this.state.year,director:this.state.director});
-            this.props.addNewMovie({id: rand, movieTitle:this.state.movieTitle, year:this.state.year,runtime: this.state.runtime, genre: this.state.genre, director:this.state.director  });
+            this.props.addNewMovie({id: rand, movieTitle: this.state.movieTitle, year: this.state.year,runtime: this.state.runtime, genre: this.state.genre, director:this.state.director  });
             this.toggle();
             // this.props.movieList()
             // event.preventDefault();
@@ -109,7 +112,7 @@ export class AddMovie extends React.Component {
 
     }
     render() {
-        const errors= this.validate(this.state.movieTitle, this.state.director,this.state.year,this.state.genre, this.state.year);
+        const errors= this.validate(this.state.movieTitle, this.state.director,this.state.runtime,this.state.genre, this.state.year);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
 
         return (

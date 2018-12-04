@@ -4,9 +4,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 export class SModal extends React.Component {
-    constructor(props, context) {
-
-        super(props, context);
+    
+    constructor(props) {
+        super(props);
         console.log("ssssss", props.movie);
         this.state = {
             movieTitle: this.props.movie.movieTitle,
@@ -19,10 +19,10 @@ export class SModal extends React.Component {
         };
     }
 
-    // setValues(movieTitle,director,runtime, genre, year){
+    setValues(movieTitle,director,runtime, genre, year){
         
 
-    // }
+    }
 
 
 
