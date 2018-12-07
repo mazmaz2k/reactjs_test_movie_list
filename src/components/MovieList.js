@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { AddMovie } from './AddMovie';
 import { Movie } from './Movie';
 import { EditMovie } from './EditMovie';
@@ -23,7 +23,8 @@ class MovieList extends React.Component {
     this.sub_toggle = this.sub_toggle.bind(this);
     this.deleteFromList = this.deleteFromList.bind(this);
     this.addNewMovie = this.addNewMovie.bind(this);
-
+    this.editMovie = this.editMovie.bind(this);
+    this.checkIfExist = this.checkIfExist.bind(this);
   }
 
   toggle(i) {
@@ -75,44 +76,54 @@ class MovieList extends React.Component {
     //   .catch(function (error) {
     //     console.log(error);
     //   });
-    console.log("dddddddddddd");
 
     GetMovies().then(res => {
-      console.log("res", res.data);
-      let movies = Object.keys(res.data.movies).map(key => {    // for each movie object
-        let movieTitle = this.titleFilter(res.data.movies[key].movieTitle);    // get the filtered title
-        res.data.movies[key].movieTitle = movieTitle;                  // set the filtered title
-        return res.data.movies[key];                         // return the movie with formated title
+      let movies = Object.keys(res.data).map(key => {    // for each movie object
+        let movieTitle = this.titleFilter(res.data[key].movieTitle);    // get the filtered title
+        res.data[key].movieTitle = movieTitle;                  // set the filtered title
+        return res.data[key];                         // return the movie with formated title
       });
       this.setState({
         movies: movies
       })
-    });
+    }).catch(function (error) {
+          console.log(error);
+        });
 
 
   }
 
+  checkIfExist(title) {
+    let movieList = this.state.movies;
+    for(var i = 0; i < movieList.length; i++) {
+        if(movieList[i].title === title) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
   addNewMovie(movie) {
     const movieList = this.state.movies;
+    let titleFiltered = this.titleFilter(movie.movieTitle);    // filter the title
+
+    movie.movieTitle = titleFiltered;
     movieList.push(movie);
     this.setState({ movies: movieList });
   }
 
-  editMovie(movie,title) {
-    console.log("movie: ", movie)
-    const movieList = this.state.movies;
-    movieList[this.state.idx] = movie;
-    console.log("Before: ", movieList);
-    let titleFiltered = this.titleFilter(title);    // filter the title
-    movieList[this.state.idx] = {
-      ...this.state,
-      "movieTitle": titleFiltered,
-  };
-    this.setState({ movies: movieList });
-    console.log("After: ", this.state.movies)
+  editMovie(movie) {
 
+    // console.log("movie: ",movie)
+    let titleFiltered = this.titleFilter(movie.movieTitle);    // filter the title
+
+    movie.movieTitle = titleFiltered;
+    const movieList = this.state.movies;
+    movieList[this.state.idx]=movie;
+    // console.log("Before: ",movieList)
+    this.setState({movies: movieList});
+    // console.log("After: ",this.state.movies)
   }
 
 
@@ -126,7 +137,7 @@ class MovieList extends React.Component {
 
     const movies = this.state.movies;
 
-    console.log(this.state.checkedItems);
+    // console.log(this.state.checkedItems);
     // var idx =0;
     let movieListBlock = '';
     if (movies.length > 0) {
@@ -148,8 +159,8 @@ class MovieList extends React.Component {
           <div>
             {<AddMovie movieList={this.state.movies} addNewMovie={this.addNewMovie} />}
             {movieListBlock}
-            {this.state.modal && <SModal isOpen={this.state.modal} sub_toggle={this.sub_toggle} toggle={this.toggle} movie={this.state.movies[this.state.idx]} deleteItem={this.deleteFromList} idx={this.state.idx} />}
-            {!this.state.modal && this.state.sub_modal && <EditMovie isOpen={this.state.sub_modal} toggle={this.sub_toggle} editMovie={this.editMovie} movie={this.state.movies[this.state.idx]} />}
+            {this.state.modal && <SModal isOpen={this.state.modal} checkIfExist={this.checkIfExist} sub_toggle={this.sub_toggle} toggle={this.toggle} movie={this.state.movies[this.state.idx]} deleteItem={this.deleteFromList} idx={this.state.idx} />}
+            {!this.state.modal && this.state.sub_modal && <EditMovie isOpen={this.state.sub_modal} titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} toggle={this.sub_toggle} editMovie={this.editMovie} movie={this.state.movies[this.state.idx]} />}
 
           </div>
         </ul>

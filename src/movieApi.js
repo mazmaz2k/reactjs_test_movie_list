@@ -5,5 +5,5 @@ export function GetMovies() {
     return axios.get('./movies.json')
     .catch(function (error) {
         console.log(error);
-      });;
+      });
 }

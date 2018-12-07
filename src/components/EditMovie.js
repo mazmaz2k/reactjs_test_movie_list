@@ -12,7 +12,9 @@ export class EditMovie extends React.Component {
             year: props.movie.year,
             runtime: props.movie.runtime,
             genre: props.movie.genre,
-            valTitle: false
+            valTitle: false,
+            movie_title_error: false,
+            existError: false
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,12 +59,8 @@ export class EditMovie extends React.Component {
     }
 
     handleTitleChange(e) {
-        const array = e.target.value.split(" ");
-        array.filter(str =>{
-            str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
-        })
-        console.log("ooooooooo",array);
-        this.setState({ movieTitle: array });
+
+        this.setState({ movieTitle: e.target.value });
     }
     handleDirctorChange(e) {
         this.setState({ director: e.target.value });
@@ -76,18 +74,13 @@ export class EditMovie extends React.Component {
         this.setState({ year: e.target.value });
     }
     handleRuntimeChange(e) {
-        // if(e.target.value===''  || e.target.value<1900){
-        //     return false;
-        // }
         this.setState({ runtime: e.target.value });
     }
     handleGenreChange(e){
         this.setState({ genre: e.target.value});
     }
     canBeSubmitted() {
-        // if(this.state.year===5001){
-        //     console.log("qweqweqweqwe")
-        // }
+
         const errors = this.validate(this.state.movieTitle, this.state.director,  this.state.year,this.state.runtime, this.state.genre);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         if (this.state.year ===5001){
@@ -98,12 +91,22 @@ export class EditMovie extends React.Component {
     }
 
     handleSubmit(event) {
+
         const a_movie = { id: this.props.movie.id, director: this.state.director, year: this.state.year, movieTitle: this.state.movieTitle, runtime: this.state.runtime, genre:this.state.genre };
+        let title = this.props.titleFilter(this.state.movieTitle);      // get the filtered title
+        if(this.props.checkIfExist(title) !== -1 && this.props.checkIfExist(title) !== this.props.index) {                            // check if the title already exist in array
+            this.setState({
+                ...this.state,
+                existError: true
+            });
+            return;
+        } 
         this.props.editMovie(a_movie);
         this.props.toggle();
         event.preventDefault();
 
     }
+
 
     render() {
         const errors = this.validate(this.state.movieTitle, this.state.director, this.state.year, this.state.runtime, this.state.genre);
@@ -136,6 +139,8 @@ export class EditMovie extends React.Component {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
+                {this.state.existError && <div style={{float: "left"}} className="error"> The movie with that title already exist </div>}
+
                     <Button type="submit" value="Submit" color="primary" onClick={this.handleSubmit} disabled={isDisabled}>submit</Button>{' '}
                 </ModalFooter>
             </Modal>

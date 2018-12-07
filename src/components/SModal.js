@@ -7,7 +7,7 @@ export class SModal extends Component {
     
     constructor(props) {
         super(props);
-        console.log("ssssss", props.movie);
+        // console.log("ssssss", props.movie);
         this.state = {
             movieTitle: props.movie.movieTitle,
             director: props.movie.director,
