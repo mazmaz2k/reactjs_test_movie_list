@@ -11,9 +11,9 @@ export class AddMovie extends React.Component {
             collapse: false,
             movieTitle: '',
             director: '',
-            runtime: '',
+            runtime: 0,
             genre: '',
-            year: '',
+            year: 1900,
             valTitle :false
   
         };
@@ -101,9 +101,9 @@ export class AddMovie extends React.Component {
         }
         event.preventDefault();
         this.setState({
-            year:'', 
+            year: 1900, 
             movieTitle:'',
-            runtime:'',
+            runtime: 0,
             genre: '',
             director: ''
             }
@@ -132,11 +132,11 @@ export class AddMovie extends React.Component {
                                 </FormGroup>
                                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                     <Label  className="mr-sm-2">Enter  Year</Label>
-                                    <Input valid type="number" max="5000" min="0" name="year" id="year" placeholder="Enter year placeholder" value={this.state.year} onChange={this.handleYearChange}  className={errors.year ? "error" : ""}/>
+                                    <Input valid type="number" max="5000" min="1900" name="year" id="year" placeholder="Enter year placeholder" value={this.state.year} onChange={this.handleYearChange}  className={errors.year ? "error" : ""}/>
                                 </FormGroup>
                                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter  runtime</Label>
-                                    <Input valid type="number"  min="0"  name="runtime" id="runtime" placeholder="Enter runtime placeholder" value={this.state.runtime} onChange={this.handleRuntimeChange}  className={errors.runtime ? "error" : ""}/>
+                                    <Label  className="mr-sm-2">Enter  runtime minutes</Label>
+                                    <Input valid type="number"  min="0" max="2000" name="runtime" id="runtime" placeholder="Enter runtime placeholder" value={this.state.runtime} onChange={this.handleRuntimeChange}  className={errors.runtime ? "error" : ""}/>
                                 </FormGroup>
                                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                                     <Label  className="mr-sm-2">Enter  Genre</Label>

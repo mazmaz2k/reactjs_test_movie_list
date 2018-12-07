@@ -3,15 +3,15 @@ import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, M
 
 
 export class EditMovie extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
         console.log(props.movie);
         this.state = {
-            movieTitle: this.props.movie.movieTitle,
-            director: this.props.movie.director,
-            year: this.props.movie.year,
-            runtime: this.props.movie.runtime,
-            genre: this.props.movie.genre,
+            movieTitle: props.movie.movieTitle,
+            director: props.movie.director,
+            year: props.movie.year,
+            runtime: props.movie.runtime,
+            genre: props.movie.genre,
             valTitle: false
 
         };
@@ -24,6 +24,28 @@ export class EditMovie extends React.Component {
 
     }
     validate(movieTitle, director, year, runtime, genre) {
+        if(year>=5001||year<1900 ){
+            console.log("qweqweqweqwe");
+            return ({
+                director: director.length === 0,
+                movieTitle: movieTitle.length === 0,
+                year: 1,
+                runtime: runtime.length === 1,
+                genre: genre.length === 0,
+            }
+            );
+        }
+        if(runtime<1 || runtime>2000){
+            console.log("qweqweqweqwe");
+            return ({
+                director: director.length === 0,
+                movieTitle: movieTitle.length === 0,
+                year: year.length ===0,
+                runtime: 1,
+                genre: genre.length === 0,
+            }
+            );
+        }
         return ({
             director: director.length === 0,
             movieTitle: movieTitle.length === 0,
@@ -35,20 +57,26 @@ export class EditMovie extends React.Component {
     }
 
     handleTitleChange(e) {
-        this.setState({ movieTitle: e.target.value });
+        const array = e.target.value.split(" ");
+        array.filter(str =>{
+            str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+        })
+        console.log("ooooooooo",array);
+        this.setState({ movieTitle: array });
     }
     handleDirctorChange(e) {
         this.setState({ director: e.target.value });
     }
 
     handleYearChange(e) {
-        // if(e.target.value===''){
+        // if(e.target.value<=5000 || e.target.value>=5000){
         //     return false;
         // }
+        // console.log("year", e.target.value);
         this.setState({ year: e.target.value });
     }
     handleRuntimeChange(e) {
-        // if(e.target.value===''){
+        // if(e.target.value===''  || e.target.value<1900){
         //     return false;
         // }
         this.setState({ runtime: e.target.value });
@@ -57,8 +85,14 @@ export class EditMovie extends React.Component {
         this.setState({ genre: e.target.value});
     }
     canBeSubmitted() {
+        // if(this.state.year===5001){
+        //     console.log("qweqweqweqwe")
+        // }
         const errors = this.validate(this.state.movieTitle, this.state.director,  this.state.year,this.state.runtime, this.state.genre);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
+        if (this.state.year ===5001){
+            return ;
+        }
         return !isDisabled;
 
     }
@@ -93,11 +127,11 @@ export class EditMovie extends React.Component {
                         </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                             <Label className="mr-sm-2">Enter published year</Label>
-                            <Input type="number" min="0" max="5000" name="year" id="year" defaultValue={this.state.year} onChange={this.year} className={errors.year ? "error" : ""} />
+                            <Input type="number" min="1900" max="5000" name="year" id="year" defaultValue={this.state.year} onChange={this.handleYearChange} className={errors.year ? "error" : ""} />
                         </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                            <Label className="mr-sm-2">Enter runtime</Label>
-                            <Input type="number" min="0" name="runtime" id="runtime" defaultValue={this.state.runtime} onChange={this.runtime} className={errors.runtime ? "error" : ""} />
+                            <Label className="mr-sm-2">Enter runtime in minutes</Label>
+                            <Input type="number" min="0" max="2000" name="runtime" id="runtime" defaultValue={this.state.runtime} onChange={this.handleRuntimeChange} className={errors.runtime ? "error" : ""} />
                         </FormGroup>
                     </Form>
                 </ModalBody>

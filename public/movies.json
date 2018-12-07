@@ -9,7 +9,7 @@
     },
     {
         "id": 2,
-        "movieTitle": "Leanne Graham 2",
+        "movieTitle": "Leanne Graham",
         "director": "smith",
         "genre": "Biography, Crime, Drama",
         "year": "199",
@@ -19,7 +19,7 @@
         "id": 3,
         "movieTitle": "Leanne Graham 3",
         "director": "smith",
-        "Genre": "Biography, Crime, Drama",
+        "genre": "Biography, Crime, Drama",
         "year": "199",
         "runtime": "100"
     },

@@ -1,19 +1,19 @@
-import React from 'react';
+import React,{Component } from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
-export class SModal extends React.Component {
+export class SModal extends Component {
     
     constructor(props) {
         super(props);
         console.log("ssssss", props.movie);
         this.state = {
-            movieTitle: this.props.movie.movieTitle,
-            director: this.props.movie.director,
-            runtime: this.props.movie.runtime,
-            genre: this.props.movie.genre,
-            year: this.props.movie.year,
+            movieTitle: props.movie.movieTitle,
+            director: props.movie.director,
+            runtime: props.movie.runtime,
+            genre: props.movie.genre,
+            year: props.year,
             valTitle: false
 
         };
@@ -34,7 +34,7 @@ export class SModal extends React.Component {
                     <ModalBody>
                         {/* <p>Title: {this.props.movie.movieTitle}</p> */}
                         <p>Year: {this.props.movie.year}</p>
-                        <p>Runtime: {this.props.movie.runtime}</p>
+                        <p>Runtime: {this.props.movie.runtime} min</p>
                         <p>Genre: {this.props.movie.genre}</p>
                         <p>Director: {this.props.movie.director}</p>
                     </ModalBody>
