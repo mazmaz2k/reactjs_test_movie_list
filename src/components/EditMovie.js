@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal,  Form, FormGroup, Label } from 'react-bootstrap';
 
 
 export class EditMovie extends React.Component {
@@ -27,7 +28,6 @@ export class EditMovie extends React.Component {
     }
     validate(movieTitle, director, year, runtime, genre) {
         if(year>=5001||year<1900 ){
-            console.log("qweqweqweqwe");
             return ({
                 director: director.length === 0,
                 movieTitle: movieTitle.length === 0,
@@ -38,7 +38,6 @@ export class EditMovie extends React.Component {
             );
         }
         if(runtime<1 || runtime>2000){
-            console.log("qweqweqweqwe");
             return ({
                 director: director.length === 0,
                 movieTitle: movieTitle.length === 0,
@@ -83,9 +82,6 @@ export class EditMovie extends React.Component {
 
         const errors = this.validate(this.state.movieTitle, this.state.director,  this.state.year,this.state.runtime, this.state.genre);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
-        if (this.state.year ===5001){
-            return ;
-        }
         return !isDisabled;
 
     }
@@ -113,36 +109,36 @@ export class EditMovie extends React.Component {
         const isDisabled = Object.keys(errors).some(x => errors[x]);
 
         return (
-            <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
-                <ModalHeader toggle={this.props.toggle}>
-                    <Label className="mr-sm-2">Movie Title</Label>
-                    <Input type="text" name="movieTitle" id="movieTitle" value={this.state.movieTitle} onChange={this.handleTitleChange} className={errors.movieTitle ? "error" : ""} />
-                </ModalHeader>
-                <ModalBody>
+            <Modal show={this.props.isOpen} onHide={this.props.toggle}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="mr-sm-2">Movie Title</Modal.Title>
+                    <input type="text" name="movieTitle" id="movieTitle" value={this.state.movieTitle} onChange={this.handleTitleChange} className={errors.movieTitle ? "error" : ""} />
+                </Modal.Header>
+                <Modal.Body>
                     <Form >
                         <FormGroup>
                             <Label className="mr-sm-2">director Name</Label>
-                            <Input type="text" name="director" id="director" value={this.state.director} onChange={this.handleDirctorChange} className={errors.director ? "error" : ""} />
+                            <input type="text" name="director" id="director" value={this.state.director} onChange={this.handleDirctorChange} className={errors.director ? "error" : ""} />
                         </FormGroup>
                         <FormGroup>
                             <Label className="mr-sm-2">Genre</Label>
-                            <Input type="text" name="genre" id="genre" value={this.state.genre} onChange={this.handleGenreChange} className={errors.genre ? "error" : ""} />
+                            <input type="text" name="genre" id="genre" value={this.state.genre} onChange={this.handleGenreChange} className={errors.genre ? "error" : ""} />
                         </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                             <Label className="mr-sm-2">Enter published year</Label>
-                            <Input type="number" min="1900" max="5000" name="year" id="year" defaultValue={this.state.year} onChange={this.handleYearChange} className={errors.year ? "error" : ""} />
+                            <input type="number" min="1900" max="5000" name="year" id="year" defaultValue={this.state.year} onChange={this.handleYearChange} className={errors.year ? "error" : ""} />
                         </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                             <Label className="mr-sm-2">Enter runtime in minutes</Label>
-                            <Input type="number" min="0" max="2000" name="runtime" id="runtime" defaultValue={this.state.runtime} onChange={this.handleRuntimeChange} className={errors.runtime ? "error" : ""} />
+                            <input type="number" min="0" max="2000" name="runtime" id="runtime" defaultValue={this.state.runtime} onChange={this.handleRuntimeChange} className={errors.runtime ? "error" : ""} />
                         </FormGroup>
                     </Form>
-                </ModalBody>
-                <ModalFooter>
+                </Modal.Body>
+                <Modal.Footer>
                 {this.state.existError && <div style={{float: "left"}} className="error"> The movie with that title already exist </div>}
 
                     <Button type="submit" value="Submit" color="primary" onClick={this.handleSubmit} disabled={isDisabled}>submit</Button>{' '}
-                </ModalFooter>
+                </Modal.Footer>
             </Modal>
         )
     }

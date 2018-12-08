@@ -1,155 +1,200 @@
 import React from 'react';
-import { Collapse, Button, CardBody, Card,Form, FormGroup, Label, Input  } from 'reactstrap';
+// import { Collapse, Button, CardBody, Card,Form, FormGroup, Label, Input,Modal  } from 'reactstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 
 export class AddMovie extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.toggle = this.toggle.bind(this);
-        this.state = { 
-            collapse: false,
-            movieTitle: '',
-            director: '',
-            runtime: 0,
-            genre: '',
-            year: 1900,
-            valTitle :false
-  
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleDirectorChange = this.handleDirectorChange.bind(this);
-        this.handleYearChange = this.handleYearChange.bind(this);
-        this.handleGenreChange = this.handleGenreChange.bind(this);
-        this.handleRuntimeChange = this.handleRuntimeChange.bind(this);
+        // constructor
+        constructor(props) {
 
-
-    }
-
-    validate(movieTitle, director,runtime, genre, year){
-        return({
-            movieTitle: movieTitle.length === 0,
-            year: year.length ===0,
-            runtime: runtime.length ===0,
-            genre: genre.length ===0,
-            director: director.length===0
-            }
-        );
-    }
-    toggle() {
-        this.setState({ collapse: !this.state.collapse });
-
-    }
-    handleTitleChange(e) {
-        this.setState({movieTitle: e.target.value});
-    }
-    handleDirectorChange(e) {
-        // console.log(e);
-        this.setState({director: e.target.value});
-    }
-
-    handleYearChange(e) {
-        if(e.target.value===''){
-            return false;
+            super(props);
+            this.state = {
+                movieTitle: "",
+                diractor: "",
+                year: 1900,
+                runtime: 0,
+                genre: "",
+                // error indicators
+                movieTitle_error: true,
+                diractor_error: true,
+                year_error: true,
+                runtime_error:true,
+                genre_error: true,
+                existError: false
+            };
+    
+            // functions bind
+            this.modalSubmit = this.modalSubmit.bind(this);
         }
-        // console.log(e);
-        this.setState({year: e.target.value});
-    }
-    handleGenreChange(e) {
-        // console.log(e);
-        this.setState({genre: e.target.value});
-    }
-
-    handleRuntimeChange(e) {
-        // console.log(e);
-        this.setState({runtime: e.target.value});
-    }
-
-    // handleDateChange(e) {
-    //     if(e.target.value===''){
-    //         return false;
-    //     }
-    //     this.setState({year: e.target.value});
-    // }
-    canBeSubmitted() {
-        const errors = this.validate(this.state.movieTitle,this.state.director,this.state.runtime,this.state.genre,this.state.year);
-        const isDisabled = Object.keys(errors).some(x => errors[x]);
-        return !isDisabled;
-      }
-
-    handleSubmit(event){
-
-        // console.log(e)
-        console.log(this.state.director);
-        console.log(this.state.movieTitle);
-        console.log(this.state.runtime);
-        console.log(this.state.genre);
-        console.log(this.state.year);
-        if(this.state.director!=='' && this.state.movieTitle!=='' && this.state.year!=='' && this.state.genre!=='' && this.state.runtime!==''){
-            const min = 1;
-            const max = 100000;
-            const rand =Math.floor(min + Math.random() * (max - min)) ;
-            // this.props.movieList.push({id: this.props.movieList.length, movieTitle:this.state.movieTitle,year:this.state.year,director:this.state.director});
-            this.props.addNewMovie({id: rand, movieTitle: this.state.movieTitle, year: this.state.year,runtime: this.state.runtime, genre: this.state.genre, director:this.state.director  });
-            this.toggle();
-            // this.props.movieList()
-            // event.preventDefault();
-            // console.log(this.props.movieList);
-            // event.onSubmit()
-            // return;
-        }
-        event.preventDefault();
-        this.setState({
-            year: 1900, 
-            movieTitle:'',
-            runtime: 0,
-            genre: '',
-            director: ''
+    
+        // name input on change called
+        handleTitleName(title) {
+            let error = false;
+            if(title === "") {   // check if valid
+                error = true;
             }
-        )
-        // console.log(this.props.movieList);
+            this.setState({
+                ...this.state,
+                movieTitle: title,
+                movieTitle_error: error
+            });
+        }
+    
+        // runtime input on change called
+        handleRuntimeTitle(runtime) {
+            let error = false;
+            if(runtime === "" || runtime<=0) {      // check if valid
+                error = true;
+            }
+            this.setState({
+                ...this.state,
+                runtime: runtime,
+                runtime_error: error
+            });
+        }
 
-    }
-    render() {
-        const errors= this.validate(this.state.movieTitle, this.state.director,this.state.runtime,this.state.genre, this.state.year);
-        const isDisabled = Object.keys(errors).some(x => errors[x]);
+    
+        // diractor input on change called
+        handleDiractorName(diractor) {
+            let error = false;
+            if(diractor === "") {      // check if valid
+                error = true;
+            }
+            this.setState({
+                ...this.state,
+                diractor: diractor,
+                diractor_error: error
+            });
+        }
 
-        return (
-            <div>
-                <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Add new Movie</Button>
-                <Collapse isOpen={this.state.collapse}>
-                    <Card>
-                        <CardBody>
-                            <Form  onSubmit={this.handleSubmit}>
-                                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label for="movieTitle" className="mr-sm-2">Enter Movie Name</Label>
-                                    <Input type="text" name="movieTitle" id="movieTitle"  value={this.state.movieTitle} onChange={this.handleTitleChange}  placeholder="Enter Movie Name" className={errors.movieTitle ? "error" : ""}/>
-                                </FormGroup>
-                                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter director Name</Label>
-                                    <Input  type="text" name="director" id="director" placeholder="Enter director Name" value={this.state.director} onChange={this.handleDirectorChange} className={errors.director ? "error" : ""} />
-                                </FormGroup>
-                                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter  Year</Label>
-                                    <Input valid type="number" max="5000" min="1900" name="year" id="year" placeholder="Enter year placeholder" value={this.state.year} onChange={this.handleYearChange}  className={errors.year ? "error" : ""}/>
-                                </FormGroup>
-                                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter  runtime minutes</Label>
-                                    <Input valid type="number"  min="0" max="2000" name="runtime" id="runtime" placeholder="Enter runtime placeholder" value={this.state.runtime} onChange={this.handleRuntimeChange}  className={errors.runtime ? "error" : ""}/>
-                                </FormGroup>
-                                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                                    <Label  className="mr-sm-2">Enter  Genre</Label>
-                                    <Input valid type="text"   name="genre" id="genre" placeholder="Enter genre placeholder" value={this.state.genre} onChange={this.handleGenreChange}  className={errors.genre ? "error" : ""}/>
-                                </FormGroup>
-                                <hr/>
-                                <Button  type="submit" value="Submit" disabled={isDisabled}>Submit</Button>
-                            </Form>
-                        </CardBody>
-                    </Card>
-                </Collapse>
-            </div>
-        );
-    }
+        // year input on change called
+        handleYearTitle(year) {
+            let error = false;
+            if(year === "" || year<1900  || year >5000) {      // check if valid
+                error = true;
+            }
+            this.setState({
+                    ...this.state,
+                    year: year,
+                    year_error: error
+            });
+        }
+                // genre input on change called
+        handleGenreTitle(genre) {
+            let error = false;
+            if(genre === "" ) {      // check if valid
+                error = true;
+            }
+            this.setState({
+                ...this.state,
+                genre: genre,
+                genre_error: error
+             });
+        }
+    
+        // return false if there is no errors for submit button to become enabled
+        isAllValid() {
+            return this.state.movieTitle_error || this.state.diractor_error || this.state.year_error || this.state.runtime_error || this.state.genre_error;
+        }
+    
+        // clicked add button
+        modalSubmit() {
+            let title = this.props.titleFilter(this.state.movieTitle);  // get the filtered title
+            if(this.props.checkIfExist(title) !== -1) {                        // check if the title already exist in array
+                this.setState({
+                    ...this.state,
+                    existError: true,
+                });
+                console.log("sdolokoidjfdjsfsfdsdkkdkd");
 
+                return;
+            }
+            // title not exists so we can add this movie to a list
+            this.props.handleSubmit(this.state.movieTitle, this.state.diractor, this.state.year,this.state.runtime,this.state.genre);
+            this.setState({
+                movieTitle: "",
+                diractor: "",
+                year: 1900,
+                runtime:0,
+                genre:"",
+                movieTitle_error: true,
+                diractor_error: true,
+                year_error: true,
+                runtime_error: true,
+                genre_error: true
+
+            });
+        }
+    
+        render() {
+            return (<Modal
+                show={this.props.show}
+                onHide={this.props.handleHide}
+                container={this}
+                aria-labelledby="contained-modal-title" >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title">
+                        Add New movie
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{marginBottom: 30, marginLeft: 30}}>
+                <div>
+                    <input type={"text"} 
+                        placeholder={"Movie title"} 
+                        onFocus={e => this.handleTitleName(e.target.value)}
+                        value={this.state.movieTitle}
+                        onChange={e => this.handleTitleName(e.target.value)}/>
+                    {
+                        this.state.movieTitle_error && <div className="error"> Movie title must be valid </div>
+                    }
+                    <br />
+
+                    <input type={"text"} 
+                        placeholder={"Movie diractor"} 
+                        onFocus={e => this.handleDiractorName(e.target.value)}
+                        value={this.state.diractor}
+                        onChange={e => this.handleDiractorName(e.target.value)}/>
+                    {
+                        this.state.diractor_error && <div className="error"> Movie diractor must be valid </div>
+                    }
+                    <br />
+
+                    <input type={"number"} 
+                        placeholder={"Movie year"} 
+                        onFocus={e => this.handleYearTitle(e.target.value)}
+                        value={this.state.year}
+                        onChange={e => this.handleYearTitle(e.target.value)}/>
+                    {
+                        this.state.year_error && <div className="error"> Movie year must be valid </div>
+                    }
+                    <br />
+
+                    <input type={"number"} 
+                        placeholder={"Movie runtime"} 
+                        onFocus={e => this.handleRuntimeTitle(e.target.value)}
+                        value={this.state.runtime}
+                        onChange={e => this.handleRuntimeTitle(e.target.value)}/>
+                    {
+                        this.state.runtime_error && <div className="error"> Movie runtime must be valid </div>
+                    }
+                    <br />
+
+                    <input type={"text"} 
+                        placeholder={"Movie genre"} 
+                        onFocus={e => this.handleGenreTitle(e.target.value)}
+                        value={this.state.genre}
+                        onChange={e => this.handleGenreTitle(e.target.value)}/>
+                    {
+                        this.state.genre_error && <div className="error"> Movie genre must be valid </div>
+                    }
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    {this.state.existError && <div style={{float: "left"}} className="error"> The movie with that title already exist </div>}
+                    <Button bsStyle="success" disabled={this.isAllValid()} onClick={this.modalSubmit}>Add</Button>
+                    <Button bsStyle="danger" onClick={this.props.handleHide}>Close</Button>
+                </Modal.Footer>
+            </Modal>);
+        }
 }

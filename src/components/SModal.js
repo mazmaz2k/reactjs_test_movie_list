@@ -1,6 +1,8 @@
 import React,{Component } from 'react';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal } from 'react-bootstrap';
+
 
 
 export class SModal extends Component {
@@ -29,19 +31,19 @@ export class SModal extends Component {
         render() {
             console.log(this.props);
             return (
-                <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
-                    <ModalHeader toggle={this.props.toggle}><b>{this.props.movie.movieTitle}</b></ModalHeader>
-                    <ModalBody>
+                <Modal show={this.props.isOpen} onHide={this.props.toggle}>
+                    <Modal.Header closeButton ><b>{this.props.movie.movieTitle}</b></Modal.Header>
+                    <Modal.Body>
                         {/* <p>Title: {this.props.movie.movieTitle}</p> */}
                         <p>Year: {this.props.movie.year}</p>
                         <p>Runtime: {this.props.movie.runtime} min</p>
                         <p>Genre: {this.props.movie.genre}</p>
                         <p>Director: {this.props.movie.director}</p>
-                    </ModalBody>
-                    <ModalFooter>
+                    </Modal.Body>
+                    <Modal.Footer>
                         <Button color="primary" onClick={this.props.sub_toggle}>Edit</Button>{' '}
                         <Button color="secondary" onClick={() => this.props.deleteItem(this.props.idx)}>Delete</Button>
-                    </ModalFooter>
+                    </Modal.Footer>
                 </Modal>
             )
         }

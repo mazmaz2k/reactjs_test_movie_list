@@ -5,6 +5,7 @@ import { Movie } from './Movie';
 import { EditMovie } from './EditMovie';
 import { SModal } from './SModal';
 import { GetMovies } from '../movieApi';
+import { Button } from 'react-bootstrap';
 
 
 
@@ -17,7 +18,12 @@ class MovieList extends React.Component {
       modal: false,
       sub_modal: false,
       idx: 0,
+      show_new_movie_modal: false,    // new movie modal indicator
+
     }
+
+    this.handleHide = this.handleHide.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.toggle = this.toggle.bind(this);
     this.sub_toggle = this.sub_toggle.bind(this);
@@ -25,6 +31,7 @@ class MovieList extends React.Component {
     this.addNewMovie = this.addNewMovie.bind(this);
     this.editMovie = this.editMovie.bind(this);
     this.checkIfExist = this.checkIfExist.bind(this);
+    this.showAddNewMovieModal = this.showAddNewMovieModal.bind(this);
   }
 
   toggle(i) {
@@ -42,6 +49,13 @@ class MovieList extends React.Component {
     });
   }
 
+  // show new movie modal
+  showAddNewMovieModal() {
+    this.setState({
+      ...this.state,
+      show_new_movie_modal: true
+    });
+  }
   // filter the title of the movie and return good format
   titleFilter(title) {
     let newTitle = title.split(" ");        // make an array of words
@@ -64,11 +78,27 @@ class MovieList extends React.Component {
     this.toggle();
   }
 
+    // new movie creation
+  handleSubmit(movieTitle, diractor, year, runtime, gnere) {
+    console.log("000000000000");
+    let movies = this.state.movies;
+        movies.push({
+          "movieTitle": movieTitle,
+          "diractor": diractor,
+          "year": year,
+          "runtime":runtime,
+          "gnere": gnere});
+      this.setState({
+          movies: movies,
+          show_new_movie_modal: false
+      });
+  }
+
   componentDidMount() {
     // axios.get('./data/movies.json')
     //   .then(res => {
     //     // movies = res.data;
-        
+
     //     this.setState({ movies: res.data });
     //   })
 
@@ -87,32 +117,38 @@ class MovieList extends React.Component {
         movies: movies
       })
     }).catch(function (error) {
-          console.log(error);
-        });
+      console.log(error);
+    });
 
 
   }
 
   checkIfExist(title) {
+    console.log("sddsaaaaaakkkkkkk",this.state.movies);
     let movieList = this.state.movies;
-    for(var i = 0; i < movieList.length; i++) {
-        if(movieList[i].title === title) {
-            return true;
-        }
+    for (var i = 0; i < movieList.length; i++) {
+      if (movieList[i].movieTitle === title) {
+        return i;
+      }
     }
-    return false;
-}
-
-
-  addNewMovie(movie) {
-    const movieList = this.state.movies;
-    let titleFiltered = this.titleFilter(movie.movieTitle);    // filter the title
-
-    movie.movieTitle = titleFiltered;
-    movieList.push(movie);
-    this.setState({ movies: movieList });
+    return -1;
   }
 
+  // hide the modal of new movie
+  handleHide() {
+    this.setState({
+      ...this.state,
+      show_new_movie_modal: false
+    });
+  }
+
+  // show new movie modal
+  addNewMovie() {
+      this.setState({
+          ...this.state,
+          show_new_movie_modal: true
+      });
+  }
   editMovie(movie) {
 
     // console.log("movie: ",movie)
@@ -120,9 +156,9 @@ class MovieList extends React.Component {
 
     movie.movieTitle = titleFiltered;
     const movieList = this.state.movies;
-    movieList[this.state.idx]=movie;
+    movieList[this.state.idx] = movie;
     // console.log("Before: ",movieList)
-    this.setState({movies: movieList});
+    this.setState({ movies: movieList });
     // console.log("After: ",this.state.movies)
   }
 
@@ -141,7 +177,6 @@ class MovieList extends React.Component {
     // var idx =0;
     let movieListBlock = '';
     if (movies.length > 0) {
-
       movieListBlock = this.state.movies.map((movies, i) => {
         return (
           <Movie key={i} idx={i} toggle={this.toggle} movie={this.state.movies[i]} />
@@ -151,16 +186,28 @@ class MovieList extends React.Component {
         )
       });
     }
+    // console.log("dddddddfffffffffff");
 
     return (
+      
       <div className='gator container'>
 
         <ul >
           <div>
-            {<AddMovie movieList={this.state.movies} addNewMovie={this.addNewMovie} />}
+            <div id={"add_new_movie"} >
+              <Button bsStyle="primary" style={{ width: 80 + '%', fontSize: 17 }} onClick={this.addNewMovie}>Add New movie</Button>
+            </div>
+
+            <div>
+              {
+                this.state.show_new_movie_modal &&
+                <AddMovie titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} show={this.state.show_new_movie_modal} handleHide={this.handleHide} handleSubmit={this.handleSubmit} />
+              }
+
+            </div>
             {movieListBlock}
-            {this.state.modal && <SModal isOpen={this.state.modal} checkIfExist={this.checkIfExist} sub_toggle={this.sub_toggle} toggle={this.toggle} movie={this.state.movies[this.state.idx]} deleteItem={this.deleteFromList} idx={this.state.idx} />}
-            {!this.state.modal && this.state.sub_modal && <EditMovie isOpen={this.state.sub_modal} titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} toggle={this.sub_toggle} editMovie={this.editMovie} movie={this.state.movies[this.state.idx]} />}
+            {this.state.modal && <SModal isOpen={this.state.modal} titleFilter={this.titleFilter} sub_toggle={this.sub_toggle} toggle={this.toggle} movie={this.state.movies[this.state.idx]} deleteItem={this.deleteFromList} idx={this.state.idx} />}
+            {!this.state.modal && this.state.sub_modal && <EditMovie isOpen={this.state.sub_modal} titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} toggle={this.sub_toggle} editMovie={this.editMovie} index={this.state.idx} movie={this.state.movies[this.state.idx]} />}
 
           </div>
         </ul>
