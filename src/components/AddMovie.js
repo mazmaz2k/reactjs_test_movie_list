@@ -111,7 +111,7 @@ export class AddMovie extends React.Component {
                 return;
             }
             // title not exists so we can add this movie to a list
-            this.props.handleSubmit(this.state.movieTitle, this.state.diractor, this.state.year,this.state.runtime,this.state.genre);
+            this.props.handleSubmit(this.state.movieTitle, this.state.diractor, this.state.year, this.state.runtime, this.state.genre);
             this.setState({
                 movieTitle: "",
                 diractor: "",

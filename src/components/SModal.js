@@ -35,10 +35,11 @@ export class SModal extends Component {
                     <Modal.Header closeButton ><b>{this.props.movie.movieTitle}</b></Modal.Header>
                     <Modal.Body>
                         {/* <p>Title: {this.props.movie.movieTitle}</p> */}
+                        <p>Diractor: {this.props.movie.diractor}</p>
+
                         <p>Year: {this.props.movie.year}</p>
                         <p>Runtime: {this.props.movie.runtime} min</p>
                         <p>Genre: {this.props.movie.genre}</p>
-                        <p>Director: {this.props.movie.director}</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button bsStyle="primary" onClick={this.props.sub_toggle}>Edit</Button>{' '}

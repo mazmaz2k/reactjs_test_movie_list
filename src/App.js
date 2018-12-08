@@ -3,7 +3,7 @@ import MovieList from './components/MovieList';
 import Header from './components/Header';
 import './App.css';
 import {connect} from 'react-redux';
-import {Button} from 'react-bootstrap';
+// import {Button} from 'react-bootstrap';
 
 class App extends Component {
   render() {
@@ -12,7 +12,7 @@ class App extends Component {
       <div className="App">
         <div >
           <Header /> 
-          <Button onClick={()=>this.props.validate(this.props.moviesReducer.idx +1)}> Button</Button>
+          {/* <Button onClick={()=>this.props.validate(this.props.moviesReducer.idx +1)}> Button</Button> */}
 
         </div>
         <div>

@@ -42,7 +42,7 @@ class MovieList extends React.Component {
     });
   }
 
-  sub_toggle(movieTitle, titleerName, year, runtime, gnere, director) {
+  sub_toggle(movieTitle, titleerName, year, runtime, gnere, diractor) {
     this.setState({
       modal: !this.state.modal,
       sub_modal: !this.state.sub_modal,
@@ -80,7 +80,7 @@ class MovieList extends React.Component {
   }
 
     // new movie creation
-  handleSubmit(movieTitle, diractor, year, runtime, gnere) {
+  handleSubmit(movieTitle, diractor, year, runtime, genre) {
     console.log("000000000000");
     let movies = this.state.movies;
         movies.push({
@@ -88,7 +88,7 @@ class MovieList extends React.Component {
           "diractor": diractor,
           "year": year,
           "runtime":runtime,
-          "gnere": gnere});
+          "genre": genre});
       this.setState({
           movies: movies,
           show_new_movie_modal: false
@@ -196,8 +196,8 @@ class MovieList extends React.Component {
         <ul >
           <div>
             <div id={"add_new_movie"} >
-            <Button onClick={()=>this.props.val(this.state.movies)}> Button movies</Button>
-              <br/>
+            {/* <Button onClick={()=>this.props.val(this.state.movies)}> Button moviesReducer</Button>
+              <br/> */}
               <Button bsStyle="primary" style={{ width: 20 + '%', fontSize: 16 }} onClick={this.addNewMovie}>Add New movie</Button>
             </div>
 

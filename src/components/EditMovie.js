@@ -9,7 +9,7 @@ export class EditMovie extends React.Component {
         console.log(props.movie);
         this.state = {
             movieTitle: props.movie.movieTitle,
-            director: props.movie.director,
+            diractor: props.movie.diractor,
             year: props.movie.year,
             runtime: props.movie.runtime,
             genre: props.movie.genre,
@@ -26,10 +26,11 @@ export class EditMovie extends React.Component {
         this.handleGenreChange = this.handleGenreChange.bind(this);
 
     }
-    validate(movieTitle, director, year, runtime, genre) {
+    validate(movieTitle, diractor, year, runtime, genre) {
+        console.log(movieTitle, diractor, year, runtime, genre);
         if(year>=5001||year<1900 ){
             return ({
-                director: director.length === 0,
+                diractor: diractor.length === 0,
                 movieTitle: movieTitle.length === 0,
                 year: 1,
                 runtime: runtime.length === 1,
@@ -39,7 +40,7 @@ export class EditMovie extends React.Component {
         }
         if(runtime<1 || runtime>2000){
             return ({
-                director: director.length === 0,
+                diractor: diractor.length === 0,
                 movieTitle: movieTitle.length === 0,
                 year: year.length ===0,
                 runtime: 1,
@@ -48,7 +49,7 @@ export class EditMovie extends React.Component {
             );
         }
         return ({
-            director: director.length === 0,
+            diractor: diractor.length === 0,
             movieTitle: movieTitle.length === 0,
             year: year.length === 0,
             runtime: runtime.length === 0,
@@ -62,7 +63,7 @@ export class EditMovie extends React.Component {
         this.setState({ movieTitle: e.target.value });
     }
     handleDirctorChange(e) {
-        this.setState({ director: e.target.value });
+        this.setState({ diractor: e.target.value });
     }
 
     handleYearChange(e) {
@@ -77,7 +78,7 @@ export class EditMovie extends React.Component {
     }
     canBeSubmitted() {
 
-        const errors = this.validate(this.state.movieTitle, this.state.director,  this.state.year,this.state.runtime, this.state.genre);
+        const errors = this.validate(this.state.movieTitle, this.state.diractor,  this.state.year,this.state.runtime, this.state.genre);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return !isDisabled;
 
@@ -85,7 +86,7 @@ export class EditMovie extends React.Component {
 
     handleSubmit(event) {
 
-        const a_movie = { id: this.props.movie.id, director: this.state.director, year: this.state.year, movieTitle: this.state.movieTitle, runtime: this.state.runtime, genre:this.state.genre };
+        const a_movie = { id: this.props.movie.id, diractor: this.state.diractor, year: this.state.year, movieTitle: this.state.movieTitle, runtime: this.state.runtime, genre:this.state.genre };
         let title = this.props.titleFilter(this.state.movieTitle);      // get the filtered title
         if(this.props.checkIfExist(title) !== -1 && this.props.checkIfExist(title) !== this.props.index) {                            // check if the title already exist in array
             this.setState({
@@ -102,7 +103,7 @@ export class EditMovie extends React.Component {
 
 
     render() {
-        const errors = this.validate(this.state.movieTitle, this.state.director, this.state.year, this.state.runtime, this.state.genre);
+        const errors = this.validate(this.state.movieTitle, this.state.diractor, this.state.year, this.state.runtime, this.state.genre);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
 
         return (
@@ -114,8 +115,8 @@ export class EditMovie extends React.Component {
                 <Modal.Body>
                     <Form >
                         <FormGroup>
-                            <Label className="mr-sm-2">Director Name </Label>
-                            <input type="text" name="director" id="director" value={this.state.director} onChange={this.handleDirctorChange} className={errors.director ? "error" : ""} />
+                            <Label className="mr-sm-2">Diractor Name </Label>
+                            <input type="text" name="diractor" id="diractor" value={this.state.diractor} onChange={this.handleDirctorChange} className={errors.diractor ? "error" : ""} />
                         </FormGroup>
                         <FormGroup>
                             <Label className="mr-sm-2">Genre </Label>

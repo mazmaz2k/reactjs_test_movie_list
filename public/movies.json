@@ -3,32 +3,32 @@
         "id": 1,
         "movieTitle": "Leanne Graham",
         "director": "smith",
-        "genre": "Biography, Crime, Drama",
+        "genre": "Drama",
         "year": "199",
         "runtime": "100"
     },
     {
         "id": 2,
-        "movieTitle": "Leanne Graham",
-        "director": "smith",
+        "movieTitle": "The Shawshank Redemption",
+        "director": "smFrank Darabontith",
         "genre": "Biography, Crime, Drama",
-        "year": "199",
-        "runtime": "100"
+        "year": "1994",
+        "runtime": "144"
     },
     {
         "id": 3,
-        "movieTitle": "Leanne Graham 3",
-        "director": "smith",
-        "genre": "Biography, Crime, Drama",
-        "year": "199",
-        "runtime": "100"
+        "movieTitle": "The Godfather",
+        "director": "Francis Ford Coppola",
+        "genre": "Crime, Drama",
+        "year": "1972",
+        "runtime": "175"
     },
     {
         "id": 4,
-        "movieTitle": "Leanne Graham 4",
+        "movieTitle": "The Dark Knight",
         "director": "smith",
-        "genre": "Biography, Crime, Drama",
-        "year": "199",
-        "runtime": "100"
+        "genre": "Action, Crime, Drama ",
+        "year": "2008",
+        "runtime": "152"
     }
 ]
