@@ -3,7 +3,7 @@ import MovieList from './components/MovieList';
 import Header from './components/Header';
 import './App.css';
 import {connect} from 'react-redux';
-import {Button} from 'reactstrap';
+import {Button} from 'react-bootstrap';
 
 class App extends Component {
   render() {
@@ -13,6 +13,7 @@ class App extends Component {
         <div >
           <Header /> 
           <Button onClick={()=>this.props.validate(this.props.moviesReducer.idx +1)}> Button</Button>
+
         </div>
         <div>
           <MovieList />
@@ -27,14 +28,14 @@ const mapDispatchToProps = (dispatch)=>{
     validate: function(value){
       dispatch({
         type: "CHANGE_INDEX", 
-        payload: value
-      })
+        payload: value})
     }
+
   }
 }
 
 const mapStateToProps = (state)=>{
-  console.log(state);
+  console.log("state", state);
   return state;
 } 
 export default connect(mapStateToProps, mapDispatchToProps) (App) ;

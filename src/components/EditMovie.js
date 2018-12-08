@@ -66,10 +66,7 @@ export class EditMovie extends React.Component {
     }
 
     handleYearChange(e) {
-        // if(e.target.value<=5000 || e.target.value>=5000){
-        //     return false;
-        // }
-        // console.log("year", e.target.value);
+
         this.setState({ year: e.target.value });
     }
     handleRuntimeChange(e) {
@@ -111,25 +108,25 @@ export class EditMovie extends React.Component {
         return (
             <Modal show={this.props.isOpen} onHide={this.props.toggle}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="mr-sm-2">Movie Title</Modal.Title>
+                    <Modal.Title className="mr-sm-2">Movie Title </Modal.Title>
                     <input type="text" name="movieTitle" id="movieTitle" value={this.state.movieTitle} onChange={this.handleTitleChange} className={errors.movieTitle ? "error" : ""} />
                 </Modal.Header>
                 <Modal.Body>
                     <Form >
                         <FormGroup>
-                            <Label className="mr-sm-2">director Name</Label>
+                            <Label className="mr-sm-2">Director Name </Label>
                             <input type="text" name="director" id="director" value={this.state.director} onChange={this.handleDirctorChange} className={errors.director ? "error" : ""} />
                         </FormGroup>
                         <FormGroup>
-                            <Label className="mr-sm-2">Genre</Label>
+                            <Label className="mr-sm-2">Genre </Label>
                             <input type="text" name="genre" id="genre" value={this.state.genre} onChange={this.handleGenreChange} className={errors.genre ? "error" : ""} />
                         </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                            <Label className="mr-sm-2">Enter published year</Label>
+                            <Label className="mr-sm-2">Enter published year </Label>
                             <input type="number" min="1900" max="5000" name="year" id="year" defaultValue={this.state.year} onChange={this.handleYearChange} className={errors.year ? "error" : ""} />
                         </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                            <Label className="mr-sm-2">Enter runtime in minutes</Label>
+                            <Label className="mr-sm-2">Enter runtime in minutes </Label>
                             <input type="number" min="0" max="2000" name="runtime" id="runtime" defaultValue={this.state.runtime} onChange={this.handleRuntimeChange} className={errors.runtime ? "error" : ""} />
                         </FormGroup>
                     </Form>

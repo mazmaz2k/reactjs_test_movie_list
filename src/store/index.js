@@ -14,7 +14,12 @@ const moviesReducer = (state=initialMoviesState, action)=>{
             return {
                 ...state,
                 idx: action.payload  
-            }
+            };
+        case "CHANGE_MOVIE_LIST" : 
+            return {
+                ...state,
+                movies: action.payload  
+            };
         default : 
             return state ;
     

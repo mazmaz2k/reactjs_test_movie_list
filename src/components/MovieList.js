@@ -6,6 +6,7 @@ import { EditMovie } from './EditMovie';
 import { SModal } from './SModal';
 import { GetMovies } from '../movieApi';
 import { Button } from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 
 
@@ -195,7 +196,9 @@ class MovieList extends React.Component {
         <ul >
           <div>
             <div id={"add_new_movie"} >
-              <Button bsStyle="primary" style={{ width: 80 + '%', fontSize: 17 }} onClick={this.addNewMovie}>Add New movie</Button>
+            <Button onClick={()=>this.props.val(this.state.movies)}> Button movies</Button>
+              <br/>
+              <Button bsStyle="primary" style={{ width: 20 + '%', fontSize: 16 }} onClick={this.addNewMovie}>Add New movie</Button>
             </div>
 
             <div>
@@ -219,4 +222,28 @@ class MovieList extends React.Component {
 
 
 }
-export default MovieList; 
+
+
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    validate: function(value){
+      dispatch({
+        type: "CHANGE_INDEX", 
+        payload: value})
+    },
+    val : function(value){
+      dispatch({
+        type: "CHANGE_MOVIE_LIST", 
+        payload: value})
+    }
+
+  }
+}
+
+const mapStateToProps = (state)=>{
+  console.log("state 2", state);
+  return state;
+} 
+
+export default  connect(mapStateToProps, mapDispatchToProps) (MovieList); 

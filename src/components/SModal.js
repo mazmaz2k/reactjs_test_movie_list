@@ -41,8 +41,8 @@ export class SModal extends Component {
                         <p>Director: {this.props.movie.director}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button color="primary" onClick={this.props.sub_toggle}>Edit</Button>{' '}
-                        <Button color="secondary" onClick={() => this.props.deleteItem(this.props.idx)}>Delete</Button>
+                        <Button bsStyle="primary" onClick={this.props.sub_toggle}>Edit</Button>{' '}
+                        <Button bsStyle="danger" onClick={() => this.props.deleteItem(this.props.idx)}>Delete</Button>
                     </Modal.Footer>
                 </Modal>
             )

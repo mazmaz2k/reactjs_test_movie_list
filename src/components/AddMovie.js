@@ -44,7 +44,7 @@ export class AddMovie extends React.Component {
         // runtime input on change called
         handleRuntimeTitle(runtime) {
             let error = false;
-            if(runtime === "" || runtime<=0) {      // check if valid
+            if(runtime === "" || runtime<=0 ||runtime>2000) {      // check if valid
                 error = true;
             }
             this.setState({
@@ -166,7 +166,7 @@ export class AddMovie extends React.Component {
                         value={this.state.year}
                         onChange={e => this.handleYearTitle(e.target.value)}/>
                     {
-                        this.state.year_error && <div className="error"> Movie year must be valid </div>
+                        this.state.year_error && <div className="error"> Movie year must be valid between 1900 to 5000 </div>
                     }
                     <br />
 
@@ -176,7 +176,7 @@ export class AddMovie extends React.Component {
                         value={this.state.runtime}
                         onChange={e => this.handleRuntimeTitle(e.target.value)}/>
                     {
-                        this.state.runtime_error && <div className="error"> Movie runtime must be valid </div>
+                        this.state.runtime_error && <div className="error"> Movie runtime must be valid  between 1 to 2000</div>
                     }
                     <br />
 
@@ -192,7 +192,7 @@ export class AddMovie extends React.Component {
                 </Modal.Body>
                 <Modal.Footer>
                     {this.state.existError && <div style={{float: "left"}} className="error"> The movie with that title already exist </div>}
-                    <Button bsStyle="success" disabled={this.isAllValid()} onClick={this.modalSubmit}>Add</Button>
+                    <Button bsStyle="primary" disabled={this.isAllValid()} onClick={this.modalSubmit}>Add</Button>
                     <Button bsStyle="danger" onClick={this.props.handleHide}>Close</Button>
                 </Modal.Footer>
             </Modal>);

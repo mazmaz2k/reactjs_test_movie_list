@@ -1,0 +1,56 @@
+[debug] [2018-12-08T13:53:27.131Z] ----------------------------------------------------------------------
+[debug] [2018-12-08T13:53:27.134Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mazma\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init
+[debug] [2018-12-08T13:53:27.134Z] CLI Version:   4.2.1
+[debug] [2018-12-08T13:53:27.134Z] Platform:      win32
+[debug] [2018-12-08T13:53:27.135Z] Node Version:  v8.11.4
+[debug] [2018-12-08T13:53:27.135Z] Time:          Sat Dec 08 2018 15:53:27 GMT+0200 (שעון רגיל ירושלים)
+[debug] [2018-12-08T13:53:27.135Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-12-08T13:53:27.164Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2018-12-08T13:53:27.164Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\reactjs_test_movie_list
+
+[debug] [2018-12-08T13:55:50.804Z] ----------------------------------------------------------------------
+[debug] [2018-12-08T13:55:50.806Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mazma\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase init
+[debug] [2018-12-08T13:55:50.807Z] CLI Version:   4.2.1
+[debug] [2018-12-08T13:55:50.807Z] Platform:      win32
+[debug] [2018-12-08T13:55:50.807Z] Node Version:  v8.11.4
+[debug] [2018-12-08T13:55:50.807Z] Time:          Sat Dec 08 2018 15:55:50 GMT+0200 (שעון רגיל ירושלים)
+[debug] [2018-12-08T13:55:50.807Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-12-08T13:55:50.812Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2018-12-08T13:55:50.813Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\reactjs_test_movie_list
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2018-12-08T13:55:59.758Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-12-08T13:55:59.758Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-12-08T13:56:00.262Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-08T13:56:00.277Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ 
+[debug] [2018-12-08T13:56:01.488Z] <<< HTTP RESPONSE 200
