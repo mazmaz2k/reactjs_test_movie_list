@@ -1,44 +1,53 @@
 import React from "react";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { Navbar, NavItem, Nav } from 'react-bootstrap';
 
 export class Header extends React.Component {
     render() {
         return (
-            <nav className="navbar navbar-default">
-                <div className="container">
-                    <div className="navbar-header">
-                        <ul className="nav navbar-nav">
-                            <li><a href="">Home</a></li>
-                            <li><a  onClick={()=>this.props.val(this.props.moviesReducer.movies)} >Button Movies Reducer</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <Navbar inverse collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#brand">Home</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    
+                    <Nav pullRight>
+                        <NavItem eventKey={2} onClick={()=>this.props.val(this.props.moviesReducer.movies)}>
+                        Show Movies Reducer</NavItem>
+                        
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         );
     }
 }
 
-
-const mapDispatchToProps = (dispatch)=>{
+//show that the movie reducer is working and that it's showing the entire state of the application
+const mapDispatchToProps = (dispatch) => {
     return {
-      validate: function(value){
-        dispatch({
-          type: "CHANGE_INDEX", 
-          payload: value})
-      },
-      val : function(value){
-        dispatch({
-          type: "CHANGE_MOVIE_LIST", 
-          payload: value})
-      }
-  
+        validate: function (value) {
+            dispatch({
+                type: "CHANGE_INDEX",
+                payload: value
+            })
+        },
+        val: function (value) {
+            dispatch({
+                type: "CHANGE_MOVIE_LIST",
+                payload: value
+            })
+        }
+
     }
-  }
-  
-  const mapStateToProps = (state)=>{
+}
+
+const mapStateToProps = (state) => {
     console.log("state 3", state);
     return state;
-  } 
-  
+}
 
-export default connect(mapStateToProps, mapDispatchToProps) (Header); 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header); 

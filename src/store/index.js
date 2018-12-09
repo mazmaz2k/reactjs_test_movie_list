@@ -7,7 +7,7 @@ const initialMoviesState ={
     idx: 1
  }
 
-
+//movie reducer to change index or changing the movie list
 const moviesReducer = (state=initialMoviesState, action)=>{ 
     switch (action.type){
         case "CHANGE_INDEX" : 

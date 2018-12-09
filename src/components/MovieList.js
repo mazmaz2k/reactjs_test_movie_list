@@ -15,10 +15,10 @@ class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [],
-      modal: false,
-      sub_modal: false,
-      idx: 0,
+      movies: [],   //movie list
+      modal: false, //indicator of opening/closing of the show movie modal
+      sub_modal: false, //indicator of opening/closing of the edit movie modal
+      idx: 0,         //index of the current movie
       show_new_movie_modal: false,    // new movie modal indicator
 
     }
@@ -35,6 +35,7 @@ class MovieList extends React.Component {
     this.showAddNewMovieModal = this.showAddNewMovieModal.bind(this);
   }
 
+  //toggle of the show movie modal
   toggle(i) {
     this.setState({
       modal: !this.state.modal,
@@ -42,6 +43,7 @@ class MovieList extends React.Component {
     });
   }
 
+  //toggle of the sub edit movie modal 
   sub_toggle(movieTitle, titleerName, year, runtime, gnere, diractor) {
     this.setState({
       modal: !this.state.modal,
@@ -57,7 +59,7 @@ class MovieList extends React.Component {
       show_new_movie_modal: true
     });
   }
-  // filter the title of the movie and return good format
+  // filter the title of the movie and return right format
   titleFilter(title) {
     let newTitle = title.split(" ");        // make an array of words
     newTitle = newTitle.map(word => {       // for each word
@@ -69,19 +71,16 @@ class MovieList extends React.Component {
     return newTitle;
   }
 
-
+  //remove movie from the movie list
   deleteFromList(idx) {
     let { movies } = this.state;
-    // console.log("1:----",movies)
     movies.splice(idx, 1);
-    // console.log("2:----",movies)
     this.setState({ movies });
     this.toggle();
   }
 
-    // new movie creation
+  // creation of a new movie
   handleSubmit(movieTitle, diractor, year, runtime, genre) {
-    console.log("000000000000");
     let movies = this.state.movies;
         movies.push({
           "movieTitle": movieTitle,
@@ -96,18 +95,6 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    // axios.get('./data/movies.json')
-    //   .then(res => {
-    //     // movies = res.data;
-
-    //     this.setState({ movies: res.data });
-    //   })
-
-    //     // console.log(movies.getState).catch(function (error) {
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
     GetMovies().then(res => {
       let movies = Object.keys(res.data).map(key => {    // for each movie object
         let movieTitle = this.titleFilter(res.data[key].movieTitle);    // get the filtered title
@@ -124,8 +111,8 @@ class MovieList extends React.Component {
 
   }
 
+  // check if we already have a movie with the same title
   checkIfExist(title) {
-    console.log("sddsaaaaaakkkkkkk",this.state.movies);
     let movieList = this.state.movies;
     for (var i = 0; i < movieList.length; i++) {
       if (movieList[i].movieTitle === title) {
@@ -150,54 +137,38 @@ class MovieList extends React.Component {
           show_new_movie_modal: true
       });
   }
+
+  //update the movie list after edit modal
   editMovie(movie) {
-
-    // console.log("movie: ",movie)
     let titleFiltered = this.titleFilter(movie.movieTitle);    // filter the title
-
     movie.movieTitle = titleFiltered;
     const movieList = this.state.movies;
     movieList[this.state.idx] = movie;
-    // console.log("Before: ",movieList)
     this.setState({ movies: movieList });
-    // console.log("After: ",this.state.movies)
   }
 
 
 
   render() {
-
-
-    // console.log("movieTitles Set:  ->",movieTitles);
-
-    // console.log('All movies ', this.state.movies);
-
     const movies = this.state.movies;
-
-    // console.log(this.state.checkedItems);
-    // var idx =0;
     let movieListBlock = '';
-    if (movies.length > 0) {
+    if (movies.length > 0) {    //show all the movies in thw list
       movieListBlock = this.state.movies.map((movies, i) => {
         return (
           <Movie key={i} idx={i} toggle={this.toggle} movie={this.state.movies[i]} />
-          //   <div key={i} >
-          //       <Button color="danger" onClick={()=> this.toggle(i)} style={{ top: '20px', right: '20px', width: '500px', marginBottom: "10px" }}>{movies.movieTitle}</Button>
-          //   </div>
+
         )
       });
     }
-    // console.log("dddddddfffffffffff");
 
     return (
       
       <div className='gator container'>
 
         <ul >
-          <div>
+          <div> 
             <div id={"add_new_movie"} >
-            {/* <Button onClick={()=>this.props.val(this.state.movies)}> Button moviesReducer</Button>
-              <br/> */}
+
               <Button bsStyle="primary" style={{ width: 20 + '%', fontSize: 16 }} onClick={this.addNewMovie}>Add New movie</Button>
             </div>
 
@@ -224,7 +195,7 @@ class MovieList extends React.Component {
 }
 
 
-
+//redux dispatch - can change the movie list or change the index
 const mapDispatchToProps = (dispatch)=>{
   return {
     validate: function(value){
@@ -235,6 +206,11 @@ const mapDispatchToProps = (dispatch)=>{
     val : function(value){
       dispatch({
         type: "CHANGE_MOVIE_LIST", 
+        payload: value})
+    },
+    vali : function(value){
+      dispatch({
+        type: "SHOW_INDEX", 
         payload: value})
     }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Collapse, Button, CardBody, Card,Form, FormGroup, Label, Input,Modal  } from 'reactstrap';
 import { Button, Modal } from 'react-bootstrap';
 
 
@@ -106,8 +105,6 @@ export class AddMovie extends React.Component {
                     ...this.state,
                     existError: true,
                 });
-                console.log("sdolokoidjfdjsfsfdsdkkdkd");
-
                 return;
             }
             // title not exists so we can add this movie to a list

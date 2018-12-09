@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Button, Modal,  Form, FormGroup, Label } from 'react-bootstrap';
 
 
@@ -26,9 +25,11 @@ export class EditMovie extends React.Component {
         this.handleGenreChange = this.handleGenreChange.bind(this);
 
     }
+
+    //validate the inputs
     validate(movieTitle, diractor, year, runtime, genre) {
         console.log(movieTitle, diractor, year, runtime, genre);
-        if(year>=5001||year<1900 ){
+        if(year>=5001||year<1900 ){     //year is in the correct range
             return ({
                 diractor: diractor.length === 0,
                 movieTitle: movieTitle.length === 0,
@@ -38,7 +39,7 @@ export class EditMovie extends React.Component {
             }
             );
         }
-        if(runtime<1 || runtime>2000){
+        if(runtime<1 || runtime>2000){ //runtime is in the correct range
             return ({
                 diractor: diractor.length === 0,
                 movieTitle: movieTitle.length === 0,
@@ -58,24 +59,29 @@ export class EditMovie extends React.Component {
         );
     }
 
+    // title input on change called
     handleTitleChange(e) {
-
         this.setState({ movieTitle: e.target.value });
     }
+    // diractor input on change called
     handleDirctorChange(e) {
         this.setState({ diractor: e.target.value });
     }
-
+    // year input on change called
     handleYearChange(e) {
 
         this.setState({ year: e.target.value });
     }
+
+    // runtime input on change called
     handleRuntimeChange(e) {
         this.setState({ runtime: e.target.value });
     }
+    // genre input on change called
     handleGenreChange(e){
         this.setState({ genre: e.target.value});
     }
+    //check validation of the input before submitting 
     canBeSubmitted() {
 
         const errors = this.validate(this.state.movieTitle, this.state.diractor,  this.state.year,this.state.runtime, this.state.genre);
@@ -84,10 +90,11 @@ export class EditMovie extends React.Component {
 
     }
 
+    // change movie object and insert it to the movie list (with editMovie func)  
     handleSubmit(event) {
 
         const a_movie = { id: this.props.movie.id, diractor: this.state.diractor, year: this.state.year, movieTitle: this.state.movieTitle, runtime: this.state.runtime, genre:this.state.genre };
-        let title = this.props.titleFilter(this.state.movieTitle);      // get the filtered title
+        let title = this.props.titleFilter(this.state.movieTitle);      // get the filtered title and change it
         if(this.props.checkIfExist(title) !== -1 && this.props.checkIfExist(title) !== this.props.index) {                            // check if the title already exist in array
             this.setState({
                 ...this.state,
@@ -103,8 +110,9 @@ export class EditMovie extends React.Component {
 
 
     render() {
+        //cheack validation of all the modal inputs
         const errors = this.validate(this.state.movieTitle, this.state.diractor, this.state.year, this.state.runtime, this.state.genre);
-        const isDisabled = Object.keys(errors).some(x => errors[x]);
+        const isDisabled = Object.keys(errors).some(x => errors[x]); //check for errors in the validation
 
         return (
             <Modal show={this.props.isOpen} onHide={this.props.toggle}>
@@ -135,7 +143,7 @@ export class EditMovie extends React.Component {
                 <Modal.Footer>
                 {this.state.existError && <div style={{float: "left"}} className="error"> The movie with that title already exist </div>}
 
-                    <Button type="submit" value="Submit" color="primary" onClick={this.handleSubmit} disabled={isDisabled}>submit</Button>{' '}
+                    <Button type="submit" value="Submit" bsStyle="primary" onClick={this.handleSubmit} disabled={isDisabled}>submit</Button>{' '}
                 </Modal.Footer>
             </Modal>
         )
