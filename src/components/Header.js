@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state 3", state);
+    console.log("state Header update", state);
     return state;
 }
 

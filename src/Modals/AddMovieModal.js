@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
 
-export class AddMovie extends React.Component {
+export class AddMovieModal extends React.Component {
 
         // constructor
         constructor(props) {
@@ -30,7 +30,7 @@ export class AddMovie extends React.Component {
         // name input on change called
         handleTitleName(title) {
             let error = false;
-            if(title === "") {   // check if valid
+            if(title === "" ||this.props.checkIfExist(title) !== -1) {   // check if valid
                 error = true;
             }
             this.setState({
@@ -108,7 +108,7 @@ export class AddMovie extends React.Component {
                 return;
             }
             // title not exists so we can add this movie to a list
-            this.props.handleSubmit(this.state.movieTitle, this.state.diractor, this.state.year, this.state.runtime, this.state.genre);
+            this.props.handleSubmit(title, this.state.diractor, this.state.year, this.state.runtime, this.state.genre);
             this.setState({
                 movieTitle: "",
                 diractor: "",

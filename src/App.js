@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch)=>{
 }
 
 const mapStateToProps = (state)=>{
-  console.log("state", state);
+  console.log("state app js update", state);
   return state;
 } 
 export default connect(mapStateToProps, mapDispatchToProps) (App) ;

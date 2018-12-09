@@ -2,10 +2,10 @@ import React from 'react';
 import { Button, Modal,  Form, FormGroup, Label } from 'react-bootstrap';
 
 
-export class EditMovie extends React.Component {
+export class EditMovieModal extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props.movie);
+        // console.log(props.movie);
         this.state = {
             movieTitle: props.movie.movieTitle,
             diractor: props.movie.diractor,
@@ -28,7 +28,7 @@ export class EditMovie extends React.Component {
 
     //validate the inputs
     validate(movieTitle, diractor, year, runtime, genre) {
-        console.log(movieTitle, diractor, year, runtime, genre);
+        // console.log(movieTitle, diractor, year, runtime, genre);
         if(year>=5001||year<1900 ){     //year is in the correct range
             return ({
                 diractor: diractor.length === 0,

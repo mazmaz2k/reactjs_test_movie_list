@@ -1,9 +1,9 @@
 import React from 'react';
-// import axios from 'axios';
-import { AddMovie } from './AddMovie';
+
 import { Movie } from './Movie';
-import { EditMovie } from './EditMovie';
-import { SModal } from './SModal';
+import { AddMovieModal } from '../Modals/AddMovieModal';
+import { EditMovieModal } from '../Modals/EditMovieModal';
+import { SModal } from '../Modals/SModal';
 import { GetMovies } from '../movieApi';
 import { Button } from 'react-bootstrap';
 import {connect} from 'react-redux';
@@ -63,9 +63,9 @@ class MovieList extends React.Component {
   titleFilter(title) {
     let newTitle = title.split(" ");        // make an array of words
     newTitle = newTitle.map(word => {       // for each word
-      word = word.replace(/\W/g, '');     // remove all non letters
-      word = word.toLowerCase();          // set all letter to be lower case.
-      return word.charAt(0).toUpperCase() + word.slice(1);        // set the first letter to be upper case.
+        word = word.replace(/\W/g, '');     // remove all non letters
+        word = word.toLowerCase();          // set all letter to be lower case.
+        return word.charAt(0).toUpperCase() + word.slice(1);        // set the first letter to be upper case.
     });
     newTitle = newTitle.join(" ");          // create a string from array
     return newTitle;
@@ -101,13 +101,13 @@ class MovieList extends React.Component {
         res.data[key].movieTitle = movieTitle;                  // set the filtered title
         return res.data[key];                         // return the movie with formated title
       });
+      this.props.moviesReducer.movies= movies;
       this.setState({
         movies: movies
       })
     }).catch(function (error) {
       console.log(error);
     });
-
 
   }
 
@@ -175,13 +175,13 @@ class MovieList extends React.Component {
             <div>
               {
                 this.state.show_new_movie_modal &&
-                <AddMovie titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} show={this.state.show_new_movie_modal} handleHide={this.handleHide} handleSubmit={this.handleSubmit} />
+                <AddMovieModal titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} show={this.state.show_new_movie_modal} handleHide={this.handleHide} handleSubmit={this.handleSubmit} />
               }
 
             </div>
             {movieListBlock}
             {this.state.modal && <SModal isOpen={this.state.modal} titleFilter={this.titleFilter} sub_toggle={this.sub_toggle} toggle={this.toggle} movie={this.state.movies[this.state.idx]} deleteItem={this.deleteFromList} idx={this.state.idx} />}
-            {!this.state.modal && this.state.sub_modal && <EditMovie isOpen={this.state.sub_modal} titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} toggle={this.sub_toggle} editMovie={this.editMovie} index={this.state.idx} movie={this.state.movies[this.state.idx]} />}
+            {!this.state.modal && this.state.sub_modal && <EditMovieModal isOpen={this.state.sub_modal} titleFilter={this.titleFilter} checkIfExist={this.checkIfExist} toggle={this.sub_toggle} editMovie={this.editMovie} index={this.state.idx} movie={this.state.movies[this.state.idx]} />}
 
           </div>
         </ul>
@@ -207,18 +207,13 @@ const mapDispatchToProps = (dispatch)=>{
       dispatch({
         type: "CHANGE_MOVIE_LIST", 
         payload: value})
-    },
-    vali : function(value){
-      dispatch({
-        type: "SHOW_INDEX", 
-        payload: value})
     }
 
   }
 }
 
 const mapStateToProps = (state)=>{
-  console.log("state 2", state);
+  console.log("state Movie List update", state);
   return state;
 } 
 
